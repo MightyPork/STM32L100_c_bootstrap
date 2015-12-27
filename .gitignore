@@ -1,0 +1,39 @@
+# Temporary files
+
+*.bak
+*.lnp
+*.iex
+*.hex
+*.elf
+*.axf
+*.htm
+*.lnp
+*.lst
+*.plg
+*.tra
+*.o
+*.map
+*.d
+*.dep
+*.disasm
+*.bin
+*.log
+
+*.pro.*
+
+# Backup files
+
+*.bak
+*~
+
+# Keil temporary files
+
+*.uvguix.*
+/RTE/
+
+# DS-5 temporary files
+
+/.externalToolBuilders
+
+
+/trash/
