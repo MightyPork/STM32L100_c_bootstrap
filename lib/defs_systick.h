@@ -14,10 +14,10 @@
 //****************************************************************************
 
 
-#define SysTick_CSR           MMIO32(_SCS_BASE + 0x010)        // (R/W) SysTick Control and Status Register
-#define SysTick_RELOAD        MMIO32(_SCS_BASE + 0x014)        // (R/W) SysTick Reload Value Register
-#define SysTick_VAL           MMIO32(_SCS_BASE + 0x018)        // (R/W) SysTick Current Value Register
-#define SysTick_CALIB         MMIO32(_SCS_BASE + 0x01C)        // (R/ ) SysTick Calibration Value Register
+#define SysTick_CSR           MMIO32(SCS_BASE + 0x010)        // (R/W) SysTick Control and Status Register
+#define SysTick_RELOAD        MMIO32(SCS_BASE + 0x014)        // (R/W) SysTick Reload Value Register
+#define SysTick_VAL           MMIO32(SCS_BASE + 0x018)        // (R/W) SysTick Current Value Register
+#define SysTick_CALIB         MMIO32(SCS_BASE + 0x01C)        // (R/ ) SysTick Calibration Value Register
 
 
 

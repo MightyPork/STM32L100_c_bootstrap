@@ -6,11 +6,16 @@
 #include <stdbool.h>
 
 
+typedef volatile uint8_t* io8_t;
+typedef volatile uint16_t* io16_t;
+typedef volatile uint32_t* io32_t ;
+typedef volatile uint64_t* io64_t;
+
 /* Generic memory-mapped I/O accessor functions */
-#define MMIO8(addr)     (*(volatile uint8_t *)(addr))
-#define MMIO16(addr)        (*(volatile uint16_t *)(addr))
-#define MMIO32(addr)        (*(volatile uint32_t *)(addr))
-#define MMIO64(addr)        (*(volatile uint64_t *)(addr))
+#define MMIO8(addr)     (*(io8_t)(addr))
+#define MMIO16(addr)    (*(io16_t)(addr))
+#define MMIO32(addr)    (*(io32_t)(addr))
+#define MMIO64(addr)    (*(io64_t)(addr))
 
 /* Generic bit-band I/O accessor functions */
 #define BBIO_SRAM(addr, bit) \
@@ -22,6 +27,9 @@
 // i...iterator, m...mask, count...nr of bits
 #define BitFieldLoop(i, m, count) for (uint32_t i = 0, m = 1; i < count; m <<= 1, i++)
 
+#define P_REG(periph_base, reg_offs) ((io32_t) ((periph_base) + (reg_offs)))
+
+#define BIT(x) (1 << (x))
 
 #define BIT0  (1<<0)
 #define BIT1  (1<<1)

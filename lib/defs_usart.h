@@ -11,55 +11,65 @@
 //*
 //****************************************************************************
 
+// offsets
+#define USART_SR_offs    0x00 // USART1 Status register,
+#define USART_DR_offs    0x04 // USART1 Data register,
+#define USART_BRR_offs   0x08 // USART1 Baud rate register,
+#define USART_CR1_offs   0x0C // USART1 Control register 1,
+#define USART_CR2_offs   0x10 // USART1 Control register 2,
+#define USART_CR3_offs   0x14 // USART1 Control register 3,
+#define USART_GTPR_offs  0x18 // USART1 Guard time and prescaler register,
+
+
 // USART 1
 
-#define USART1_SR           MMIO32(_USART1 + 0x00) // USART1 Status register,
-#define USART1_DR           MMIO32(_USART1 + 0x04) // USART1 Data register,
-#define USART1_BRR          MMIO32(_USART1 + 0x08) // USART1 Baud rate register,
-#define USART1_CR1          MMIO32(_USART1 + 0x0C) // USART1 Control register 1,
-#define USART1_CR2          MMIO32(_USART1 + 0x10) // USART1 Control register 2,
-#define USART1_CR3          MMIO32(_USART1 + 0x14) // USART1 Control register 3,
-#define USART1_GTPR         MMIO32(_USART1 + 0x18) // USART1 Guard time and prescaler register,
+#define USART1_SR           MMIO32(USART1 + 0x00) // USART1 Status register,
+#define USART1_DR           MMIO32(USART1 + 0x04) // USART1 Data register,
+#define USART1_BRR          MMIO32(USART1 + 0x08) // USART1 Baud rate register,
+#define USART1_CR1          MMIO32(USART1 + 0x0C) // USART1 Control register 1,
+#define USART1_CR2          MMIO32(USART1 + 0x10) // USART1 Control register 2,
+#define USART1_CR3          MMIO32(USART1 + 0x14) // USART1 Control register 3,
+#define USART1_GTPR         MMIO32(USART1 + 0x18) // USART1 Guard time and prescaler register,
 
 // USART 2
 
-#define USART2_SR         MMIO32(_USART2 + 0x00) // USART2 Status register,
-#define USART2_DR         MMIO32(_USART2 + 0x04) // USART2 Data register,
-#define USART2_BRR        MMIO32(_USART2 + 0x08) // USART2 Baud rate register,
-#define USART2_CR1        MMIO32(_USART2 + 0x0C) // USART2 Control register 1,
-#define USART2_CR2        MMIO32(_USART2 + 0x10) // USART2 Control register 2,
-#define USART2_CR3        MMIO32(_USART2 + 0x14) // USART2 Control register 3,
-#define USART2_GTPR       MMIO32(_USART2 + 0x18) // USART2 Guard time and prescaler register,
+#define USART2_SR         MMIO32(USART2 + 0x00) // USART2 Status register,
+#define USART2_DR         MMIO32(USART2 + 0x04) // USART2 Data register,
+#define USART2_BRR        MMIO32(USART2 + 0x08) // USART2 Baud rate register,
+#define USART2_CR1        MMIO32(USART2 + 0x0C) // USART2 Control register 1,
+#define USART2_CR2        MMIO32(USART2 + 0x10) // USART2 Control register 2,
+#define USART2_CR3        MMIO32(USART2 + 0x14) // USART2 Control register 3,
+#define USART2_GTPR       MMIO32(USART2 + 0x18) // USART2 Guard time and prescaler register,
 
 // USART 3
 
-#define USART3_SR         MMIO32(_USART3 + 0x00) // USART3 Status register,
-#define USART3_DR         MMIO32(_USART3 + 0x04) // USART3 Data register,
-#define USART3_BRR        MMIO32(_USART3 + 0x08) // USART3 Baud rate register,
-#define USART3_CR1        MMIO32(_USART3 + 0x0C) // USART3 Control register 1,
-#define USART3_CR2        MMIO32(_USART3 + 0x10) // USART3 Control register 2,
-#define USART3_CR3        MMIO32(_USART3 + 0x14) // USART3 Control register 3,
-#define USART3_GTPR       MMIO32(_USART3 + 0x18) // USART3 Guard time and prescaler register,
+#define USART3_SR         MMIO32(USART3 + 0x00) // USART3 Status register,
+#define USART3_DR         MMIO32(USART3 + 0x04) // USART3 Data register,
+#define USART3_BRR        MMIO32(USART3 + 0x08) // USART3 Baud rate register,
+#define USART3_CR1        MMIO32(USART3 + 0x0C) // USART3 Control register 1,
+#define USART3_CR2        MMIO32(USART3 + 0x10) // USART3 Control register 2,
+#define USART3_CR3        MMIO32(USART3 + 0x14) // USART3 Control register 3,
+#define USART3_GTPR       MMIO32(USART3 + 0x18) // USART3 Guard time and prescaler register,
 
 // USART 4
 
-#define UART4_SR          MMIO32(_UART4 + 0x00) // UART4 Status register,
-#define UART4_DR          MMIO32(_UART4 + 0x04) // UART4 Data register,
-#define UART4_BRR         MMIO32(_UART4 + 0x08) // UART4 Baud rate register,
-#define UART4_CR1         MMIO32(_UART4 + 0x0C) // UART4 Control register 1,
-#define UART4_CR2         MMIO32(_UART4 + 0x10) // UART4 Control register 2,
-#define UART4_CR3         MMIO32(_UART4 + 0x14) // UART4 Control register 3,
-#define UART4_GTPR        MMIO32(_UART4 + 0x18) // UART4 Guard time and prescaler register,
+#define UART4_SR          MMIO32(UART4 + 0x00) // UART4 Status register,
+#define UART4_DR          MMIO32(UART4 + 0x04) // UART4 Data register,
+#define UART4_BRR         MMIO32(UART4 + 0x08) // UART4 Baud rate register,
+#define UART4_CR1         MMIO32(UART4 + 0x0C) // UART4 Control register 1,
+#define UART4_CR2         MMIO32(UART4 + 0x10) // UART4 Control register 2,
+#define UART4_CR3         MMIO32(UART4 + 0x14) // UART4 Control register 3,
+#define UART4_GTPR        MMIO32(UART4 + 0x18) // UART4 Guard time and prescaler register,
 
 // USART 5
 
-#define UART5_SR          MMIO32(_UART5 + 0x00) // UART5 Status register,
-#define UART5_DR          MMIO32(_UART5 + 0x04) // UART5 Data register,
-#define UART5_BRR         MMIO32(_UART5 + 0x08) // UART5 Baud rate register,
-#define UART5_CR1         MMIO32(_UART5 + 0x0C) // UART5 Control register 1,
-#define UART5_CR2         MMIO32(_UART5 + 0x10) // UART5 Control register 2,
-#define UART5_CR3         MMIO32(_UART5 + 0x14) // UART5 Control register 3,
-#define UART5_GTPR        MMIO32(_UART5 + 0x18) // UART5 Guard time and prescaler register,
+#define UART5_SR          MMIO32(UART5 + 0x00) // UART5 Status register,
+#define UART5_DR          MMIO32(UART5 + 0x04) // UART5 Data register,
+#define UART5_BRR         MMIO32(UART5 + 0x08) // UART5 Baud rate register,
+#define UART5_CR1         MMIO32(UART5 + 0x0C) // UART5 Control register 1,
+#define UART5_CR2         MMIO32(UART5 + 0x10) // UART5 Control register 2,
+#define UART5_CR3         MMIO32(UART5 + 0x14) // UART5 Control register 3,
+#define UART5_GTPR        MMIO32(UART5 + 0x18) // UART5 Guard time and prescaler register,
 
 
 

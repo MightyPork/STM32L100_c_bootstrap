@@ -18,6 +18,7 @@ STARTUP_SCRIPT = startup_stm32l100xc.s
 OBJS += $(BINARY).o $(STARTUP_SCRIPT:.s=.o)
 OBJS += lib/gpio.o
 OBJS += lib/systick.o
+OBJS += lib/usart.o
 
 ################################################################
 

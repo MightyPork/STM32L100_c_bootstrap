@@ -1,6 +1,7 @@
 #include <common.h>
 #include <gpio.h>
 #include <systick.h>
+#include <usart.h>
 
 
 static void init_gpios(void)
@@ -9,7 +10,9 @@ static void init_gpios(void)
 	gpio_enable(GPIOB);
 	gpio_enable(GPIOC);
 
-	gpio_set_mode(GPIOC, BIT8 | BIT9, MODER_OUTPUT);
+	gpio_set_mode(GPIOC, BIT8 | BIT9 | BIT7, MODER_OUTPUT);
+
+	gpio_set_mode(GPIOA, BIT8, MODER_OUTPUT);
 }
 
 
@@ -39,8 +42,8 @@ static void init_usart(void)
 	RCC_APB1ENR |= RCC_APB1ENR_USART3EN;
 
 	// RATE 9600Bd 104.1875 (see datasheet for reference)8.6875
-	// 0x00683 ... 9600
-	USART3_BRR = 0x0008A;  // 115200
+	//USART3_BRR = 0x00683; // 9600
+	USART3_BRR = 0x0008A; // 115200
 
 	// USART enable
 	USART3_CR1 = USART_CR1_UE | USART_CR1_RE | USART_CR1_TE;
@@ -74,7 +77,7 @@ void SysTick_Handler(void)
 
 void delay(void)
 {
-	for (int i = 0; i < 100000; i++) {
+	for (int i = 0; i < 800000; i++) {
 		__asm__("nop");
 	}
 }
@@ -85,5 +88,7 @@ int main(void)
 	while (1) {
 		delay();
 		GPIOC_ODR ^= BIT8;
+
+		usart_tx_string(USART3, "HELLO\r\n");
 	}
 }

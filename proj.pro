@@ -19,7 +19,8 @@ DISTFILES += \
 SOURCES += \
     main.c \
     lib/gpio.c \
-    lib/systick.c
+    lib/systick.c \
+    lib/usart.c
 
 HEADERS += \
     lib/common.h \
@@ -30,5 +31,6 @@ HEADERS += \
     lib/gpio.h \
     lib/defs_systick.h \
     lib/systick.h \
-    lib/defs_usart.h
+    lib/defs_usart.h \
+    lib/usart.h
 

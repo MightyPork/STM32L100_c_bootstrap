@@ -4,20 +4,20 @@
 
 // RCC registers
 
-#define RCC_CR              MMIO32(_RCC + 0x00) // RCC clock control register,
-#define RCC_ICSCR           MMIO32(_RCC + 0x04) // RCC Internal clock sources calibration register,
-#define RCC_CFGR            MMIO32(_RCC + 0x08) // RCC Clock configuration register,
-#define RCC_CIR             MMIO32(_RCC + 0x0C) // RCC Clock interrupt register,
-#define RCC_AHBRSTR         MMIO32(_RCC + 0x10) // RCC AHB peripheral reset register,
-#define RCC_APB2RSTR        MMIO32(_RCC + 0x14) // RCC APB2 peripheral reset register,
-#define RCC_APB1RSTR        MMIO32(_RCC + 0x18) // RCC APB1 peripheral reset register,
-#define RCC_AHBENR          MMIO32(_RCC + 0x1C) // RCC AHB peripheral clock enable register,
-#define RCC_APB2ENR         MMIO32(_RCC + 0x20) // RCC APB2 peripheral clock enable register,
-#define RCC_APB1ENR         MMIO32(_RCC + 0x24) // RCC APB1 peripheral clock enable register,
-#define RCC_AHBLPENR        MMIO32(_RCC + 0x28) // RCC AHB peripheral clock enable in low power mode register,
-#define RCC_APB2LPENR       MMIO32(_RCC + 0x2C) // RCC APB2 peripheral clock enable in low power mode register,
-#define RCC_APB1LPENR       MMIO32(_RCC + 0x30) // RCC APB1 peripheral clock enable in low power mode register,
-#define RCC_CSR             MMIO32(_RCC + 0x34) // RCC Control/status register,
+#define RCC_CR              MMIO32(RCC_BASE + 0x00) // RCC clock control register,
+#define RCC_ICSCR           MMIO32(RCC_BASE + 0x04) // RCC Internal clock sources calibration register,
+#define RCC_CFGR            MMIO32(RCC_BASE + 0x08) // RCC Clock configuration register,
+#define RCC_CIR             MMIO32(RCC_BASE + 0x0C) // RCC Clock interrupt register,
+#define RCC_AHBRSTR         MMIO32(RCC_BASE + 0x10) // RCC AHB peripheral reset register,
+#define RCC_APB2RSTR        MMIO32(RCC_BASE + 0x14) // RCC APB2 peripheral reset register,
+#define RCC_APB1RSTR        MMIO32(RCC_BASE + 0x18) // RCC APB1 peripheral reset register,
+#define RCC_AHBENR          MMIO32(RCC_BASE + 0x1C) // RCC AHB peripheral clock enable register,
+#define RCC_APB2ENR         MMIO32(RCC_BASE + 0x20) // RCC APB2 peripheral clock enable register,
+#define RCC_APB1ENR         MMIO32(RCC_BASE + 0x24) // RCC APB1 peripheral clock enable register,
+#define RCC_AHBLPENR        MMIO32(RCC_BASE + 0x28) // RCC AHB peripheral clock enable in low power mode register,
+#define RCC_APB2LPENR       MMIO32(RCC_BASE + 0x2C) // RCC APB2 peripheral clock enable in low power mode register,
+#define RCC_APB1LPENR       MMIO32(RCC_BASE + 0x30) // RCC APB1 peripheral clock enable in low power mode register,
+#define RCC_CSR             MMIO32(RCC_BASE + 0x34) // RCC Control/status register,
 
 
 

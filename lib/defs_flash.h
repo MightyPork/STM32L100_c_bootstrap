@@ -18,28 +18,28 @@
 
 // FLASH registers
 
-#define FLASH_ACR           MMIO32(_FLASH + 0x00) // Access control register,
-#define FLASH_PECR          MMIO32(_FLASH + 0x04) // Program/erase control register,
-#define FLASH_PDKEYR        MMIO32(_FLASH + 0x08) // Power down key register,
-#define FLASH_PEKEYR        MMIO32(_FLASH + 0x0c) // Program/erase key register,
-#define FLASH_PRGKEYR       MMIO32(_FLASH + 0x10) // Program memory key register,
-#define FLASH_OPTKEYR       MMIO32(_FLASH + 0x14) // Option byte key register,
-#define FLASH_SR            MMIO32(_FLASH + 0x18) // Status register,
-#define FLASH_OBR           MMIO32(_FLASH + 0x1c) // Option byte register,
-#define FLASH_WRPR          MMIO32(_FLASH + 0x20) // Write protection register,
-#define FLASH_WRPR1         MMIO32(_FLASH + 0x28) // Write protection register 1,
-#define FLASH_WRPR2         MMIO32(_FLASH + 0x2C) // Write protection register 2,
+#define FLASH_ACR           MMIO32(FLASH_CTRL + 0x00) // Access control register,
+#define FLASH_PECR          MMIO32(FLASH_CTRL + 0x04) // Program/erase control register,
+#define FLASH_PDKEYR        MMIO32(FLASH_CTRL + 0x08) // Power down key register,
+#define FLASH_PEKEYR        MMIO32(FLASH_CTRL + 0x0c) // Program/erase key register,
+#define FLASH_PRGKEYR       MMIO32(FLASH_CTRL + 0x10) // Program memory key register,
+#define FLASH_OPTKEYR       MMIO32(FLASH_CTRL + 0x14) // Option byte key register,
+#define FLASH_SR            MMIO32(FLASH_CTRL + 0x18) // Status register,
+#define FLASH_OBR           MMIO32(FLASH_CTRL + 0x1c) // Option byte register,
+#define FLASH_WRPR          MMIO32(FLASH_CTRL + 0x20) // Write protection register,
+#define FLASH_WRPR1         MMIO32(FLASH_CTRL + 0x28) // Write protection register 1,
+#define FLASH_WRPR2         MMIO32(FLASH_CTRL + 0x2C) // Write protection register 2,
 
 // FLASH option bytes (maybe incorrect, not tested)
 
-#define OB_RDP              MMIO32(_OB + 0x00) // Read protection register,
-#define OB_USER             MMIO32(_OB + 0x04) // user register,
-#define OB_WRP01            MMIO32(_OB + 0x08) // write protection register 0 1,
-#define OB_WRP23            MMIO32(_OB + 0x0C) // write protection register 2 3,
-#define OB_WRP45            MMIO32(_OB + 0x10) // write protection register 4 5,
-#define OB_WRP67            MMIO32(_OB + 0x14) // write protection register 6 7,
-#define OB_WRP89            MMIO32(_OB + 0x18) // write protection register 8 9,
-#define OB_WRP1011          MMIO32(_OB + 0x1C) // write protection register 10 11,
+#define OB_RDP              MMIO32(OB_CTRL + 0x00) // Read protection register,
+#define OB_USER             MMIO32(OB_CTRL + 0x04) // user register,
+#define OB_WRP01            MMIO32(OB_CTRL + 0x08) // write protection register 0 1,
+#define OB_WRP23            MMIO32(OB_CTRL + 0x0C) // write protection register 2 3,
+#define OB_WRP45            MMIO32(OB_CTRL + 0x10) // write protection register 4 5,
+#define OB_WRP67            MMIO32(OB_CTRL + 0x14) // write protection register 6 7,
+#define OB_WRP89            MMIO32(OB_CTRL + 0x18) // write protection register 8 9,
+#define OB_WRP1011          MMIO32(OB_CTRL + 0x1C) // write protection register 10 11,
 
 
 
