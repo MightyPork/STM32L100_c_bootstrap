@@ -2,6 +2,7 @@
 
 #include "utils/gpio.h"
 #include "utils/usart.h"
+#include "utils/nvic.h"
 
 
 void init_gpios(void)
@@ -48,6 +49,10 @@ void init_usart(void)
 
 	// USART enable
 	USART3_CR1 = USART_CR1_UE | USART_CR1_RE | USART_CR1_TE;
+
+	// enable interrupt on data receive
+	nvic_enable_irq(NVIC_USART3_IRQ);
+	USART3_CR1 |= USART_CR1_RXNEIE;
 }
 
 
@@ -64,3 +69,29 @@ void init_adc(void)
 {
 	// TODO
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

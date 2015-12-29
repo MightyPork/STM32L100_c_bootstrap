@@ -8,5 +8,5 @@ void blue_toggle(void);
 void blue_on(void);
 void blue_off(void);
 
-void blink_green(void);
-void blink_blue(void);
+void green_blink(void);
+void blue_blink(void);

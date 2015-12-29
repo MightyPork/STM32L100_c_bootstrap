@@ -29,7 +29,9 @@ SOURCES += \
     utils/timebase.c \
     utils/usart.c \
     utils/debounce.c \
-    blink.c
+    blink.c \
+    lib/common.c \
+    utils/nvic.c
 
 HEADERS += \
     lib/common.h \
@@ -54,5 +56,7 @@ HEADERS += \
     lib/defs_dma.h \
     lib/defs_i2c.h \
     lib/defs_spi.h \
-    lib/defs_timers.h
+    lib/defs_timers.h \
+    lib/defs_nvic.h \
+    utils/nvic.h
 

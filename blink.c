@@ -9,14 +9,14 @@ void blue_toggle(void) { GPIOC_ODR ^= BIT8; }
 void blue_on(void) { GPIOC_ODR |= BIT8; }
 void blue_off(void) { GPIOC_ODR &= ~BIT8; }
 
-void blink_green(void)
+void green_blink(void)
 {
 	green_on();
-	schedule_task(green_off, 250);
+	schedule_task(green_off, 100);
 }
 
-void blink_blue(void)
+void blue_blink(void)
 {
 	blue_on();
-	schedule_task(blue_off, 250);
+	schedule_task(blue_off, 100);
 }

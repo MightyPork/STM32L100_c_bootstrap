@@ -6,10 +6,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-
+// Memory mapped IO pointer types
 typedef volatile uint8_t* io8_t;
 typedef volatile uint16_t* io16_t;
-typedef volatile uint32_t* io32_t ;
+typedef volatile uint32_t* io32_t;
 typedef volatile uint64_t* io64_t;
 
 /* Generic memory-mapped I/O accessor functions */
@@ -25,45 +25,65 @@ typedef volatile uint64_t* io64_t;
 #define BBIO_PERIPH(addr, bit) \
 	MMIO32((((uint32_t)addr) & 0x0FFFFF) * 32 + 0x42000000 + (bit) * 4)
 
+
+// intrinsics
+#define wait_for_interrupt() __asm__("WFI")
+
+#define __CLZ(div) __builtin_clz(div)
+#define count_leading_zeros(div) __CLZ(div)
+
+#define __REV(x) __builtin_bswap32(x)
+#define reverse_bytes(x) __REV(x)
+
+#define enable_interrupts() __asm__("CPSIE I")
+#define disable_interrupts() __asm__("CPSID I");
+#define enable_faults() __asm__("CPSIE F");
+#define disable_faults() __asm__("CPSID F");
+
+uint32_t __RBIT(uint32_t value); // defined in c file as inline asm
+#define reverse_bits(v) __RBIT(v)
+
+
 // i...iterator, m...mask, count...nr of bits
 #define BitFieldLoop(i, m, count) for (uint32_t i = 0, m = 1; i < count; m <<= 1, i++)
 
+// get a peripheral register pointer
 #define P_REG(periph_base, reg_offs) ((io32_t) ((periph_base) + (reg_offs)))
 
 #define BIT(x) (1 << (x))
 
-#define BIT0  (1<<0)
-#define BIT1  (1<<1)
-#define BIT2  (1<<2)
-#define BIT3  (1<<3)
-#define BIT4  (1<<4)
-#define BIT5  (1<<5)
-#define BIT6  (1<<6)
-#define BIT7  (1<<7)
-#define BIT8  (1<<8)
-#define BIT9  (1<<9)
-#define BIT10 (1<<10)
-#define BIT11 (1<<11)
-#define BIT12 (1<<12)
-#define BIT13 (1<<13)
-#define BIT14 (1<<14)
-#define BIT15 (1<<15)
-#define BIT16 (1<<16)
-#define BIT17 (1<<17)
-#define BIT18 (1<<18)
-#define BIT19 (1<<19)
-#define BIT20 (1<<20)
-#define BIT21 (1<<21)
-#define BIT22 (1<<22)
-#define BIT23 (1<<23)
-#define BIT24 (1<<24)
-#define BIT25 (1<<25)
-#define BIT26 (1<<26)
-#define BIT27 (1<<27)
-#define BIT28 (1<<28)
-#define BIT29 (1<<29)
-#define BIT30 (1<<30)
-#define BIT31 (1<<31)
+#define BIT0  BIT(0)
+#define BIT1  BIT(1)
+#define BIT2  BIT(2)
+#define BIT3  BIT(3)
+#define BIT4  BIT(4)
+#define BIT5  BIT(5)
+#define BIT6  BIT(6)
+#define BIT7  BIT(7)
+#define BIT8  BIT(8)
+#define BIT9  BIT(9)
+#define BIT10 BIT(10)
+#define BIT11 BIT(11)
+#define BIT12 BIT(12)
+#define BIT13 BIT(13)
+#define BIT14 BIT(14)
+#define BIT15 BIT(15)
+#define BIT16 BIT(16)
+#define BIT17 BIT(17)
+#define BIT18 BIT(18)
+#define BIT19 BIT(19)
+#define BIT20 BIT(20)
+#define BIT21 BIT(21)
+#define BIT22 BIT(22)
+#define BIT23 BIT(23)
+#define BIT24 BIT(24)
+#define BIT25 BIT(25)
+#define BIT26 BIT(26)
+#define BIT27 BIT(27)
+#define BIT28 BIT(28)
+#define BIT29 BIT(29)
+#define BIT30 BIT(30)
+#define BIT31 BIT(31)
 
 
 
@@ -79,3 +99,4 @@ typedef volatile uint64_t* io64_t;
 #include "defs_i2c.h"
 #include "defs_spi.h"
 #include "defs_timers.h"
+#include "defs_nvic.h"

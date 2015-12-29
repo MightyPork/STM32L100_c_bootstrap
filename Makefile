@@ -20,8 +20,10 @@ OBJS += utils/gpio.o
 OBJS += utils/usart.o
 OBJS += utils/timebase.o
 OBJS += utils/debounce.o
+OBJS += utils/nvic.o
 OBJS += init.o
 OBJS += blink.o
+OBJS += lib/common.o
 
 ################################################################
 
