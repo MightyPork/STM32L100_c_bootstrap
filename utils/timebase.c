@@ -2,28 +2,43 @@
 
 volatile uint32_t TIME_MS;
 
-#define TASK_COUNT 10
+#define PERIODIC_TASK_COUNT 5
+#define FUTURE_TASK_COUNT 5
 
 // --- time scheduler system ---
 typedef struct {
 	/** User callback */
-	void (*callback) (void);
+	void (*callback)(void);
 	/** Callback interval */
 	uint32_t interval_ms;
 	/** Counter, when reaches interval_ms, is cleared and callback is called. */
 	uint32_t countup;
-} timebase_cb_t;
+} periodic_task_t;
 
-static uint8_t scheduled_task_n = 0;
-static timebase_cb_t scheduled_tasks[TASK_COUNT];
+static uint8_t periodic_task_n = 0;
+static periodic_task_t periodic_tasks[PERIODIC_TASK_COUNT];
 
 
-bool schedule_timed_task(void (*callback) (void), uint32_t interval_ms)
+// --- future call system ---
+typedef struct {
+	/** 1 for active tasks */
+	bool active;
+	/** User callback */
+	void (*callback)(void);
+	/** Counter, when reaches 0ms, callback is called and the task is removed */
+	uint32_t countdown_ms;
+} future_task_t;
+
+static future_task_t future_tasks[FUTURE_TASK_COUNT];
+
+
+
+bool register_periodic_task(void (*callback)(void), uint32_t interval_ms)
 {
-	if (scheduled_task_n >= TASK_COUNT) return false;
+	if (periodic_task_n >= PERIODIC_TASK_COUNT) return false;
 
 	// add the task
-	timebase_cb_t *task = &scheduled_tasks[scheduled_task_n++];
+	periodic_task_t *task = &periodic_tasks[periodic_task_n++];
 	task->callback = callback;
 	task->countup = 0;
 	task->interval_ms = interval_ms;
@@ -32,17 +47,45 @@ bool schedule_timed_task(void (*callback) (void), uint32_t interval_ms)
 }
 
 
+
+bool register_future_task(void (*callback)(void), uint32_t delay_ms)
+{
+	for (int i = 0; i < FUTURE_TASK_COUNT; i++) {
+		future_task_t *task = &future_tasks[i];
+		if (task->active) continue;
+
+		task->callback = callback;
+		task->countdown_ms = delay_ms;
+		task->active = true;
+	}
+
+	return false;
+}
+
+
+
 /** IRQ */
 void SysTick_Handler(void)
 {
 	TIME_MS++;
 
 	// run scheduled tasks
-	for (int i = 0; i < scheduled_task_n; i++) {
-		timebase_cb_t *task = &scheduled_tasks[i];
+	for (int i = 0; i < periodic_task_n; i++) {
+		periodic_task_t *task = &periodic_tasks[i];
 		if (task->countup++ >= task->interval_ms) {
 			task->callback();
 			task->countup = 0;
+		}
+	}
+
+	// run future tasks
+	for (int i = 0; i < FUTURE_TASK_COUNT; i++) {
+		future_task_t *task = &future_tasks[i];
+		if (!task->active) continue;
+
+		if (task->countdown_ms-- == 0) {
+			task->callback();
+			task->active = 0;
 		}
 	}
 }

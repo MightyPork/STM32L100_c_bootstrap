@@ -11,6 +11,7 @@ void init_gpios(void)
 	gpio_enable(GPIOC);
 
 	gpio_set_mode(GPIOC, BIT8 | BIT9 | BIT7, MODER_OUTPUT);
+	gpio_set_mode(GPIOA, BIT0, MODER_INPUT);
 }
 
 
