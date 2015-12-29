@@ -1,3 +1,6 @@
+#pragma once
+#include "common.h"
+
 // AUTHOR : Ondrej Hruska
 // DATE   : 12/2015
 // DESCR  : Control registers and bit masks for USART

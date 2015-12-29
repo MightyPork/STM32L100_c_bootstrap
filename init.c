@@ -58,3 +58,9 @@ void init_systick(void)
 	SysTick_RELOAD = 16000; // 1ms interrupt @ 16MHz core clock
 	SysTick_CSR |= SysTick_CSR_TICKINT | SysTick_CSR_ENABLE;
 }
+
+
+void init_adc(void)
+{
+	// TODO
+}

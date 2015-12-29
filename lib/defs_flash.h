@@ -1,5 +1,4 @@
 #pragma once
-
 #include "common.h"
 
 // AUTHOR : Ondrej Hruska

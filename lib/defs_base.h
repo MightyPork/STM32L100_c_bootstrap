@@ -76,11 +76,11 @@
 #define TIM10                (APB2_BASE + 0x0C00)
 #define TIM11                (APB2_BASE + 0x1000)
 
-#define SYSCFG_BASE               (APB2_BASE + 0x0000)           // System config block base
-#define EXTI_BASE                 (APB2_BASE + 0x0400)           // External interrupt settings base
+#define SYSCFG_BASE          (APB2_BASE + 0x0000)           // System config block base
+#define EXTI_BASE            (APB2_BASE + 0x0400)           // External interrupt settings base
 
-#define ADC1                 (APB2_BASE + 0x2400)           // A/D 1
-#define ADCC                 (APB2_BASE + 0x2700)           // common A/D registers base
+#define ADC1_BASE            (APB2_BASE + 0x2400)           // A/D 1
+#define ADCC_BASE            (APB2_BASE + 0x2700)           // common A/D registers base
 
 #define SDIO                 (APB2_BASE + 0x2C00)           // SD host
 #define SPI1                 (APB2_BASE + 0x3000)           // SPI

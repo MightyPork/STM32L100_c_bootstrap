@@ -14,7 +14,8 @@ DISTFILES += \
 	Makefile \
     style.astylerc \
     startup_stm32l100xc.s \
-    stm32l100rc.ld
+    stm32l100rc.ld \
+    .gitignore
 
 SOURCES += \
     main.c \
@@ -47,5 +48,11 @@ HEADERS += \
     utils/timebase.h \
     utils/usart.h \
     utils/debounce.h \
-    blink.h
+    blink.h \
+    lib/defs_adc.h \
+    lib/defs_dac.h \
+    lib/defs_dma.h \
+    lib/defs_i2c.h \
+    lib/defs_spi.h \
+    lib/defs_timers.h
 
