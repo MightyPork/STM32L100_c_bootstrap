@@ -5,19 +5,8 @@
 #include "utils/debounce.h"
 
 #include "init.h"
+#include "blink.h"
 
-void blink_green(void)
-{
-	GPIOC_ODR ^= BIT9;
-}
-
-void blink_blue(void)
-{
-	GPIOC_ODR ^= BIT8;
-}
-
-void blue_on(void) { GPIOC_ODR |= BIT8; }
-void blue_off(void) { GPIOC_ODR &= ~BIT8; }
 
 // called every 1s
 
@@ -35,11 +24,8 @@ void SystemInit(void)
 	init_gpios();
 	init_usart();
 
-	register_periodic_task(blink_green, 1000);
-	//register_periodic_task(blink_blue, 1000);
-	register_periodic_task(say_hello, 1000);
-
-	register_debounced_pin(GPIOA, 0, blue_on, blue_off);
+	register_periodic_task(green_toggle, 1000);
+	register_periodic_task(blink_blue, 5000);
 }
 
 

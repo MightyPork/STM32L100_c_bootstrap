@@ -5,7 +5,7 @@ volatile uint32_t TIME_MS;
 
 
 // --- time scheduler ---
-#define PERIODIC_TASK_COUNT 5
+#define PERIODIC_TASK_COUNT 10
 
 typedef struct {
 	/** User callback */
@@ -22,7 +22,7 @@ static periodic_task_t periodic_tasks[PERIODIC_TASK_COUNT];
 
 
 // --- future calls ---
-#define FUTURE_TASK_COUNT 5
+#define FUTURE_TASK_COUNT 10
 typedef struct {
 	/** 1 for active tasks */
 	bool active;

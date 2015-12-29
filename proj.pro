@@ -27,7 +27,8 @@ SOURCES += \
     utils/gpio.c \
     utils/timebase.c \
     utils/usart.c \
-    utils/debounce.c
+    utils/debounce.c \
+    blink.c
 
 HEADERS += \
     lib/common.h \
@@ -45,5 +46,6 @@ HEADERS += \
     utils/gpio.h \
     utils/timebase.h \
     utils/usart.h \
-    utils/debounce.h
+    utils/debounce.h \
+    blink.h
 

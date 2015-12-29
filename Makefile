@@ -21,6 +21,7 @@ OBJS += utils/usart.o
 OBJS += utils/timebase.o
 OBJS += utils/debounce.o
 OBJS += init.o
+OBJS += blink.o
 
 ################################################################
 
