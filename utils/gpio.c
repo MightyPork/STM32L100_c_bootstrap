@@ -41,17 +41,13 @@ void gpio_disable(uint32_t gpio)
 void gpio_set_af(uint32_t gpio, uint32_t pins, enum GPIO_AF af)
 {
 	gpio_enable(gpio);
+	gpio_set_mode(gpio, pins, MODER_AF);
 
-	io32_t moder = P_REG(gpio, GPIO_MODER_offs);
 	io32_t afrl = P_REG(gpio, GPIO_AFRL_offs);
 	io32_t afrh = P_REG(gpio, GPIO_AFRH_offs);
 
 	BitFieldLoop(i, m, 16) {
 		if (pins & m) {
-			// set pin mode to AF
-			*moder &= ~(0b11 << i * 2);
-			*moder |= MODER_AF << i * 2;
-
 			if (i < 8) {
 				*afrl &= ~(0xF << i * 4);
 				*afrl |= af << i * 4;

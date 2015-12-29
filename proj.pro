@@ -19,8 +19,14 @@ DISTFILES += \
 SOURCES += \
     main.c \
     lib/gpio.c \
-    lib/systick.c \
-    lib/usart.c
+    lib/usart.c \
+    init.c \
+    timebase.c \
+    gpio.c \
+    usart.c \
+    utils/gpio.c \
+    utils/timebase.c \
+    utils/usart.c
 
 HEADERS += \
     lib/common.h \
@@ -28,9 +34,14 @@ HEADERS += \
     lib/defs_flash.h \
     lib/defs_gpio.h \
     lib/defs_rcc.h \
-    lib/gpio.h \
     lib/defs_systick.h \
-    lib/systick.h \
     lib/defs_usart.h \
-    lib/usart.h
+    lib/usart.h \
+    init.h \
+    timebase.h \
+    gpio.h \
+    usart.h \
+    utils/gpio.h \
+    utils/timebase.h \
+    utils/usart.h
 

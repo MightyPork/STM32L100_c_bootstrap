@@ -28,4 +28,4 @@ bool usart_tx_ready(uint32_t usart);
 void usart_tx_char(uint32_t usart, uint8_t c);
 
 /** Transmit a string until \0 */
-void usart_tx_string(uint32_t usart, char *string);
+void usart_tx_string(uint32_t usart, const char *string);

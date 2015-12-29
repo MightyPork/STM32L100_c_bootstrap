@@ -10,15 +10,16 @@ LDSCRIPT    = stm32l100rc.ld
 # Main file
 BINARY      = main
 
-INCL_DIRS   = . lib source
-SRC_DIR     = source
+INCL_DIRS   = . lib utils
 
 STARTUP_SCRIPT = startup_stm32l100xc.s
 
-OBJS += $(BINARY).o $(STARTUP_SCRIPT:.s=.o)
-OBJS += lib/gpio.o
-OBJS += lib/systick.o
-OBJS += lib/usart.o
+OBJS += $(BINARY).o
+OBJS += $(STARTUP_SCRIPT:.s=.o)
+OBJS += utils/gpio.o
+OBJS += utils/usart.o
+OBJS += utils/timebase.o
+OBJS += init.o
 
 ################################################################
 

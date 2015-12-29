@@ -73,8 +73,9 @@ void usart_tx_char(uint32_t usart, uint8_t c)
 	*DR = c;
 }
 
+
 /** Transmit a string until \0 */
-void usart_tx_string(uint32_t usart, char *string)
+void usart_tx_string(uint32_t usart, const char *string)
 {
 	char c;
 	while ((c = *string++) != 0) {
