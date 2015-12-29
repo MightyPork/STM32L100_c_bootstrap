@@ -2,6 +2,7 @@
 
 #include "utils/usart.h"
 #include "utils/timebase.h"
+#include "utils/debounce.h"
 
 #include "init.h"
 
@@ -10,23 +11,13 @@ void blink_green(void)
 	GPIOC_ODR ^= BIT9;
 }
 
-
-// --- async delayed blue blink ---
-
-bool blue_blink_pending = false;
-
-void blue_off(void)
-{
-	GPIOC_ODR &= ~BIT8;
-	blue_blink_pending = false;
-}
-
 void blink_blue(void)
 {
-	GPIOC_ODR |= BIT8;
-	register_future_task(blue_off, 200);
+	GPIOC_ODR ^= BIT8;
 }
 
+void blue_on(void) { GPIOC_ODR |= BIT8; }
+void blue_off(void) { GPIOC_ODR &= ~BIT8; }
 
 // called every 1s
 
@@ -44,25 +35,15 @@ void SystemInit(void)
 	init_gpios();
 	init_usart();
 
-	register_periodic_task(blink_green, 500);
+	register_periodic_task(blink_green, 1000);
+	//register_periodic_task(blink_blue, 1000);
 	register_periodic_task(say_hello, 1000);
+
+	register_debounced_pin(GPIOA, 0, blue_on, blue_off);
 }
 
 
 int main(void)
 {
-	int btn_c = 0;
-	while (1) {
-		bool btn = GPIOA_IDR & BIT0;
-		if (btn) {
-			if (btn_c++ > 20 && !blue_blink_pending) {
-				blue_blink_pending = true;
-				register_future_task(blink_blue, 1000);
-			}
-		} else {
-			btn_c = 0;
-		}
-
-		delay_ms(1);
-	}
+	while (1);
 }

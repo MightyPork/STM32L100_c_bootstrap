@@ -26,7 +26,8 @@ SOURCES += \
     usart.c \
     utils/gpio.c \
     utils/timebase.c \
-    utils/usart.c
+    utils/usart.c \
+    utils/debounce.c
 
 HEADERS += \
     lib/common.h \
@@ -43,5 +44,6 @@ HEADERS += \
     usart.h \
     utils/gpio.h \
     utils/timebase.h \
-    utils/usart.h
+    utils/usart.h \
+    utils/debounce.h
 

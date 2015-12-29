@@ -2,10 +2,11 @@
 
 volatile uint32_t TIME_MS;
 
-#define PERIODIC_TASK_COUNT 5
-#define FUTURE_TASK_COUNT 5
 
-// --- time scheduler system ---
+
+// --- time scheduler ---
+#define PERIODIC_TASK_COUNT 5
+
 typedef struct {
 	/** User callback */
 	void (*callback)(void);
@@ -15,11 +16,13 @@ typedef struct {
 	uint32_t countup;
 } periodic_task_t;
 
-static uint8_t periodic_task_n = 0;
+static int periodic_task_n = 0;
 static periodic_task_t periodic_tasks[PERIODIC_TASK_COUNT];
 
 
-// --- future call system ---
+
+// --- future calls ---
+#define FUTURE_TASK_COUNT 5
 typedef struct {
 	/** 1 for active tasks */
 	bool active;
@@ -48,7 +51,7 @@ bool register_periodic_task(void (*callback)(void), uint32_t interval_ms)
 
 
 
-bool register_future_task(void (*callback)(void), uint32_t delay_ms)
+bool schedule_task(void (*callback)(void), uint32_t delay_ms)
 {
 	for (int i = 0; i < FUTURE_TASK_COUNT; i++) {
 		future_task_t *task = &future_tasks[i];
@@ -89,6 +92,7 @@ void SysTick_Handler(void)
 		}
 	}
 }
+
 
 
 void delay_ms(uint32_t ms)
