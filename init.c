@@ -61,7 +61,10 @@ void init_usart(void)
 
 void init_systick(void)
 {
-	SysTick_CSR = (SysTick_CSR & ~SysTick_CSR_CLKSOURCE) | SysTick_CSR_CLKSOURCE_CORE;
+	//SysTick_CSR = (SysTick_CSR & ~SysTick_CSR_CLKSOURCE) | (1 << __CTZ(SysTick_CSR_CLKSOURCE));
+
+	patch_register(SysTick_CSR, SysTick_CSR_CLKSOURCE, 1); // 1 - core, 0 - div 8
+
 	SysTick_RELOAD = 16000; // 1ms interrupt @ 16MHz core clock
 	SysTick_CSR |= SysTick_CSR_TICKINT | SysTick_CSR_ENABLE;
 }
@@ -103,6 +106,8 @@ void init_dac(void)
 	gpio_set_mode(GPIOA, BIT4, MODER_ANALOG); // PA4 - DAC CH1 out
 
 	DAC_CR |= DAC_CR_EN1; // enable first channel
+
+	DAC_DHR12R1 = 0; // reset value
 }
 
 
@@ -114,14 +119,14 @@ void init_pwm1(void)
 	// using timer 3, channel 1
 	gpio_set_af(GPIOA, BIT6, AF2);
 
-	patch_register(&TIM3_CCMR1, TIM_CCMR1_OC1M, TIM_OCM_PWM1); // set PWM1 mode
+	patch_register(TIM3_CCMR1, TIM_CCMR1_OC1M, TIM_OCM_PWM1); // set PWM1 mode
 
 	TIM3_CCMR1 |= TIM_CCMR1_OC1PE; // preload enable
 	TIM3_CR1 |= TIM_CR1_ARPE; // auto reload is buffered
 	TIM3_CCER |= TIM_CCER_CC1E; // enable output compare (PWM output)
 
-	patch_register(&TIM3_CR1, TIM_CR1_CMS, TIM_CMS_EDGE); // centering mode
-	patch_register(&TIM3_CR1, TIM_CR1_DIR, 0); // count upwards only
+	patch_register(TIM3_CR1, TIM_CR1_CMS, TIM_CMS_EDGE); // centering mode
+	patch_register(TIM3_CR1, TIM_CR1_DIR, 0); // count upwards only
 
 	// frequency set to 16 kHz
 

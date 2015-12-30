@@ -10,9 +10,12 @@ inline uint32_t __RBIT(uint32_t value)
 }
 
 
+// implemented as a macro for more efficient code
+
+/*
 __attribute__((always_inline))
 inline void patch_register(io32_t reg, uint32_t mask, uint32_t replacement)
 {
-	*reg &= ~mask;
-	*reg |= replacement << __CTZ(mask);
+	*reg = (*reg & ~mask) | (replacement << __CTZ(mask));
 }
+*/

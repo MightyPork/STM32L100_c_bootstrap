@@ -15,6 +15,8 @@
 static bool gate_closed = false;
 static uint32_t gate_cnt = 0;
 
+float exposure_out, exposure_accum;
+uint32_t exposure_cnt;
 
 /** IRQ */
 void USART2_IRQHandler(void)
@@ -99,14 +101,30 @@ int main(void)
 	char buf[200];
 
 	usart_tx_string(USART2, "DAQ system started.\n");
+	delay_ms(100);
 
+	bool first = true;
 	while (1) {
-		delay_ms(200);
-
 		float cels = measure_temp();
 		float angle = measure_angle();
 		float resis = measure_resistance();
 		float expos = measure_exposure();
+
+		// --- exposure averaging
+		exposure_accum += expos;
+		exposure_cnt++;
+
+		if (exposure_cnt >= 5) {
+			exposure_out = exposure_accum / exposure_cnt;
+			exposure_accum = 0;
+			exposure_cnt = 0;
+		}
+
+		if (first) {
+			exposure_out = expos; // pretend it's averaged
+		}
+		// ---
+
 
 		buf_reset(buf);
 		buf_append_str(buf, "T ");
@@ -122,7 +140,7 @@ int main(void)
 		buf_append_str(buf, " | ");
 
 		buf_append_str(buf, "L ");
-		buf_append_flt(buf, expos, 1);
+		buf_append_flt(buf, exposure_out, 1);
 		buf_append_str(buf, "% | ");
 
 		buf_append_str(buf, "G ");
@@ -141,5 +159,8 @@ int main(void)
 		buf_append_str(buf, "\n");
 
 		usart_tx_string(USART2, buf);
+
+		delay_ms(100);
+		first = false;
 	}
 }

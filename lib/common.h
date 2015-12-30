@@ -87,8 +87,15 @@ uint32_t __RBIT(uint32_t value); // defined in c file as inline asm
 #define BIT31 BIT(31)
 
 
-void patch_register(io32_t reg, uint32_t mask, uint32_t replacement);
 
+// reg - MMIO32
+// mask - uint32_t
+// replacement - uint32_t (value that goes in place of mask, right-aligned)
+//
+// example: original value 0x12345678, patch_register(reg, 0xF00, 0xC) -> 0x12345C78
+#define patch_register(reg, mask, replacement) (reg) = ((reg) & ~(mask)) | ((replacement) << __CTZ(mask))
+
+//void patch_register(io32_t reg, uint32_t mask, uint32_t replacement);
 
 
 #include "defs_base.h"
