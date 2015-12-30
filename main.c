@@ -14,19 +14,21 @@ void say_hello(void)
 
 
 /** IRQ */
-void USART3_IRQHandler(void)
+void USART2_IRQHandler(void)
 {
-	if (USART3_SR & USART_SR_ORE) {
-		USART3_SR &= ~USART_SR_ORE;
-		return;
+	// RXIE enables also ORE - must handle ORE.
+	if (USART2_SR & USART_SR_ORE) {
+		USART2_SR &= ~USART_SR_ORE;
 	}
 
-	blue_blink();
+	if (USART2_SR & USART_SR_RXNE) {
+		blue_blink();
 
-	char c = usart_rx_char(USART3);
-	usart_tx_char(USART3, c);
+		char c = usart_rx_char(USART2);
+		usart_tx_char(USART2, c);
 
-	USART3_SR ^= USART_SR_RXNE;
+		USART2_SR ^= USART_SR_RXNE;
+	}
 }
 
 
