@@ -31,7 +31,9 @@ SOURCES += \
     utils/debounce.c \
     blink.c \
     lib/common.c \
-    utils/nvic.c
+    utils/nvic.c \
+    capture.c \
+    utils/str_utils.c
 
 HEADERS += \
     lib/common.h \
@@ -58,5 +60,7 @@ HEADERS += \
     lib/defs_spi.h \
     lib/defs_timers.h \
     lib/defs_nvic.h \
-    utils/nvic.h
+    utils/nvic.h \
+    capture.h \
+    utils/str_utils.h
 

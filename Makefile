@@ -1,6 +1,6 @@
 DEFS		= -DSTM32L1
 
-FP_FLAGS	?= -msoft-float
+FP_FLAGS	?= -msoft-float -mfloat-abi=soft
 ARCH_FLAGS	= -mthumb -mcpu=cortex-m3 $(FP_FLAGS) -mfix-cortex-m3-ldrd
 
 LDSCRIPT    = stm32l100rc.ld
@@ -21,8 +21,10 @@ OBJS += utils/usart.o
 OBJS += utils/timebase.o
 OBJS += utils/debounce.o
 OBJS += utils/nvic.o
+OBJS += utils/str_utils.o
 OBJS += init.o
 OBJS += blink.o
+OBJS += capture.o
 OBJS += lib/common.o
 
 ################################################################

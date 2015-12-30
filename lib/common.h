@@ -30,6 +30,7 @@ typedef volatile uint64_t* io64_t;
 #define wait_for_interrupt() __asm__("WFI")
 
 #define __CLZ(div) __builtin_clz(div)
+#define __CTZ(div) __builtin_ctz(div)
 #define count_leading_zeros(div) __CLZ(div)
 
 #define __REV(x) __builtin_bswap32(x)
@@ -84,6 +85,9 @@ uint32_t __RBIT(uint32_t value); // defined in c file as inline asm
 #define BIT29 BIT(29)
 #define BIT30 BIT(30)
 #define BIT31 BIT(31)
+
+
+void patch_register(io32_t reg, uint32_t mask, uint32_t replacement);
 
 
 

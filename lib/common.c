@@ -9,3 +9,10 @@ inline uint32_t __RBIT(uint32_t value)
 	return (result);
 }
 
+
+__attribute__((always_inline))
+inline void patch_register(io32_t reg, uint32_t mask, uint32_t replacement)
+{
+	*reg &= ~mask;
+	*reg |= replacement << __CTZ(mask);
+}

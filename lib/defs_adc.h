@@ -20,6 +20,10 @@
 
 // ADC1
 
+// internal channels
+#define ADC_CH_TEMP	16
+#define ADC_CH_VREF	17
+
 #define ADC1_SR          MMIO32(ADC1_BASE + 0x00) // ADC status register,
 #define ADC1_CR1         MMIO32(ADC1_BASE + 0x04) // ADC control register 1,
 #define ADC1_CR2         MMIO32(ADC1_BASE + 0x08) // ADC control register 2,
@@ -44,7 +48,6 @@
 #define ADC1_JDR4        MMIO32(ADC1_BASE + 0x54) // ADC injected data register 4,
 #define ADC1_DR          MMIO32(ADC1_BASE + 0x58) // ADC regular data register,
 #define ADC1_SMPR0       MMIO32(ADC1_BASE + 0x5C) // ADC sample time register 0,
-
 
 
 //****************************************************************************

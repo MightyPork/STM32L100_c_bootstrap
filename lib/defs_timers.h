@@ -253,6 +253,13 @@
 #define TIM_CR1_CMS_0                       0x0020            // Bit 0
 #define TIM_CR1_CMS_1                       0x0040            // Bit 1
 
+enum TIM_CenterAlignMode {
+	TIM_CMS_EDGE = 0,
+	TIM_CMS_CENTER_FLAGS_UP = 1,
+	TIM_CMS_CENTER_FLAGS_DOWN = 2,
+	TIM_CMS_CENTER_FLAGS_BOTH = 3,
+};
+
 #define TIM_CR1_ARPE                        0x0080            // Auto-reload preload enable
 
 #define TIM_CR1_CKD                         0x0300            // CKD[1:0] bits (clock division)
@@ -343,6 +350,17 @@
 #define TIM_CCMR1_OC1M_0                    0x0010            // Bit 0
 #define TIM_CCMR1_OC1M_1                    0x0020            // Bit 1
 #define TIM_CCMR1_OC1M_2                    0x0040            // Bit 2
+
+enum TIM_OutputCompareMode {
+	TIM_OCM_FROZEN = 0,
+	TIM_OCM_HIGH_ON_MATCH = 1,
+	TIM_OCM_LOW_ON_MATCH = 2,
+	TIM_OCM_TOGGLE_ON_MATCH = 3,
+	TIM_OCM_FORCE_LOW = 4,
+	TIM_OCM_FORCE_HIGH = 5,
+	TIM_OCM_PWM1 = 6,
+	TIM_OCM_PWM2 = 7,
+};
 
 #define TIM_CCMR1_OC1CE                     0x0080            // Output Compare 1Clear Enable
 
