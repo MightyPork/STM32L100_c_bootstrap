@@ -6,3 +6,5 @@ float measure_temp(void);
 float measure_angle(void);
 float measure_resistance(void);
 float measure_exposure(void);
+
+void pwm2_set_frequency(float hz);

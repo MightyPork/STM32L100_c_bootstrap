@@ -141,6 +141,42 @@ void init_pwm1(void)
 }
 
 
+// pwm with variable frequency
+void init_pwm2(void)
+{
+	// enable clock for the timer
+	RCC_APB1ENR |= RCC_APB1ENR_TIM2EN;
+
+	// using timer 2, channel 2 - PA1
+	gpio_set_af(GPIOA, BIT1, AF1);
+
+	patch_register(TIM2_CCMR1, TIM_CCMR1_OC2M, TIM_OCM_PWM1); // set PWM1 mode
+
+	TIM2_CCMR1 |= TIM_CCMR1_OC2PE; // preload enable
+	TIM2_CR1 |= TIM_CR1_ARPE; // auto reload is buffered
+	TIM2_CCER |= TIM_CCER_CC2E; // enable output compare (PWM output)
+
+	patch_register(TIM2_CR1, TIM_CR1_CMS, TIM_CMS_EDGE); // centering mode
+	patch_register(TIM2_CR1, TIM_CR1_DIR, 0); // count upwards only
+
+	// frequency set to 16 kHz
+
+	/*
+	TIM2_PSC = 32; // prescaller
+	TIM2_ARR = 1000; // sets frequency
+	TIM2_CCR2 = 500; // duty cycle
+	*/
+
+	TIM2_PSC = 1; // prescaller
+	TIM2_ARR = 1600; // sets frequency
+	TIM2_CCR2 = 500; // duty cycle
+
+	// generate update event to latch the value registers
+	TIM2_EGR |= TIM_EGR_UG;
+
+	TIM2_CR1 |= TIM_CR1_CEN; // enable timer.
+}
+
 
 
 

@@ -1,5 +1,6 @@
 #include "capture.h"
 #include "utils/timebase.h"
+#include <math.h>
 
 uint16_t adc_measure(uint8_t channel)
 {
@@ -53,4 +54,24 @@ float measure_temp(void)
 	uint16_t ts_cal2 = MMIO16(0x1FF800FE);
 
 	return ((80.0f / (ts_cal2 - ts_cal1)) * (ts_data - ts_cal1) + 30.0f);
+}
+
+
+void pwm2_set_frequency(float hz)
+{
+	float core_clk = 16000000 / 2.0f; // prescaller
+
+	float cnt = core_clk / hz;
+
+	uint32_t div = (uint32_t)cnt;
+
+	if (hz < 150) {
+		div /= 8;
+		TIM2_PSC = 15;
+	} else {
+		TIM2_PSC = 1;
+	}
+
+	TIM2_ARR = div; // sets frequency
+	TIM2_CCR2 = TIM2_ARR/2; // duty cycle
 }

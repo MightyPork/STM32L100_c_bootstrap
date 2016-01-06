@@ -15,8 +15,10 @@
 static bool gate_closed = false;
 static uint32_t gate_cnt = 0;
 
-float exposure_out, exposure_accum;
-uint32_t exposure_cnt;
+static float exposure_out, exposure_accum;
+static uint32_t exposure_cnt;
+
+static uint32_t pwm2_f = 50;
 
 /** IRQ */
 void USART2_IRQHandler(void)
@@ -31,6 +33,8 @@ void USART2_IRQHandler(void)
 
 		// handle incoming char.
 		char c = usart_rx_char(USART2);
+
+		uint32_t pwm2_f_old = pwm2_f;
 
 		switch (c) {
 			case 'g': // nulovat pocitadlo preruseni
@@ -53,10 +57,36 @@ void USART2_IRQHandler(void)
 				if (TIM3_CCR1 > 0) TIM3_CCR1 -= 50;
 				break;
 
+			case 'f': // zvysit PWM stridu
+				if (pwm2_f < 20000) pwm2_f += 10;
+				break;
+
+			case 's': // snizit PWM stridu
+				if (pwm2_f > 20) pwm2_f -= 10;
+				break;
+
+			case 'F': // zvysit PWM stridu
+				if (pwm2_f < 20000-100) pwm2_f += 100;
+				break;
+
+			case 'S': // snizit PWM stridu
+				if (pwm2_f > 100) {
+					pwm2_f -= 100;
+				} else {
+					pwm2_f = 20;
+				}
+
+				if (pwm2_f < 20) pwm2_f = 20;
+
+				break;
+
 			default:
 				break;
 		}
 
+		if (pwm2_f_old != pwm2_f) {
+			pwm2_set_frequency(pwm2_f);
+		}
 
 		USART2_SR ^= USART_SR_RXNE;
 	}
@@ -88,6 +118,9 @@ void SystemInit(void)
 	init_adc();
 	init_dac();
 	init_pwm1();
+	init_pwm2();
+
+	pwm2_set_frequency(50);
 
 	register_periodic_task(green_toggle, 1000); // indicate running state
 
