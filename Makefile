@@ -24,7 +24,6 @@ OBJS += utils/nvic.o
 OBJS += utils/str_utils.o
 OBJS += init.o
 OBJS += blink.o
-OBJS += capture.o
 OBJS += lib/common.o
 
 ################################################################

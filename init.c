@@ -4,17 +4,15 @@
 #include "utils/usart.h"
 #include "utils/nvic.h"
 
+// This file contains examples of initializing some peripherals
+
 
 void init_gpios(void)
 {
-	gpio_enable(GPIOA);
-	gpio_enable(GPIOB);
 	gpio_enable(GPIOC);
 
 	// LEDs
 	gpio_set_mode(GPIOC, BIT8 | BIT9, MODER_OUTPUT);
-
-	gpio_set_mode(GPIOC, BIT11, MODER_INPUT);
 }
 
 
@@ -42,7 +40,7 @@ void init_usart(void)
 {
 	gpio_set_af(GPIOA, BIT2 | BIT3, AF7);
 
-	// USART at A2 (tx), A3 (rx)
+	// USART2 at A2 (tx), A3 (rx)
 	RCC_APB1ENR |= RCC_APB1ENR_USART2EN;
 
 	// RATE 9600Bd 104.1875 (see datasheet for reference)
@@ -61,24 +59,18 @@ void init_usart(void)
 
 void init_systick(void)
 {
-	//SysTick_CSR = (SysTick_CSR & ~SysTick_CSR_CLKSOURCE) | (1 << __CTZ(SysTick_CSR_CLKSOURCE));
-
 	patch_register(SysTick_CSR, SysTick_CSR_CLKSOURCE, 1); // 1 - core, 0 - div 8
 
 	SysTick_RELOAD = 16000; // 1ms interrupt @ 16MHz core clock
 	SysTick_CSR |= SysTick_CSR_TICKINT | SysTick_CSR_ENABLE;
 }
 
+// ----
+
 
 void init_adc(void)
 {
-	// B1 ... AN9   Vcc o--[330R]--(B1)--[?R]--| GND
-	// B0 ... AN8   fototransistor
-	// B12 .. AN18  "angle" potentiometer
-	// C5 ... AN15
-
-	gpio_set_mode(GPIOB, BIT1 | BIT0 | BIT12, MODER_ANALOG);
-	//gpio_set_mode(GPIOC, BIT5, MODER_ANALOG);
+	gpio_set_mode(GPIOB, BIT1 | BIT0 | BIT12, MODER_ANALOG); // configure pins you want to use
 
 	// enable clock for ADC
 	RCC_APB2ENR |= RCC_APB2ENR_ADC1EN;
@@ -97,6 +89,22 @@ void init_adc(void)
 	// Wait for ADONS
 	while (!(ADC1_SR & ADC_SR_ADONS));
 }
+
+// EXAMPLE to measure an ADC channel
+uint16_t adc_measure(uint8_t channel)
+{
+	ADC1_SQR5 = channel; // select n-th channel
+	ADC1_SQR1 = 0; // sets length to 1 (0000)
+
+	ADC1_CR2 |= ADC_CR2_SWSTART; // start conversion
+
+	// wait for end of conversion
+	while (!(ADC1_SR & ADC_SR_EOC));
+	return ADC1_DR;
+}
+
+
+// ----
 
 
 void init_dac(void)
@@ -117,7 +125,7 @@ void init_pwm1(void)
 	RCC_APB1ENR |= RCC_APB1ENR_TIM3EN;
 
 	// using timer 3, channel 1
-	gpio_set_af(GPIOA, BIT6, AF2);
+	gpio_set_af(GPIOA, BIT6, AF2); // A6 PWM output
 
 	patch_register(TIM3_CCMR1, TIM_CCMR1_OC1M, TIM_OCM_PWM1); // set PWM1 mode
 
@@ -139,51 +147,3 @@ void init_pwm1(void)
 
 	TIM3_CR1 |= TIM_CR1_CEN; // enable timer.
 }
-
-
-// pwm with variable frequency
-void init_pwm2(void)
-{
-	// enable clock for the timer
-	RCC_APB1ENR |= RCC_APB1ENR_TIM2EN;
-
-	// using timer 2, channel 2 - PA1
-	gpio_set_af(GPIOA, BIT1, AF1);
-
-	patch_register(TIM2_CCMR1, TIM_CCMR1_OC2M, TIM_OCM_PWM1); // set PWM1 mode
-
-	TIM2_CCMR1 |= TIM_CCMR1_OC2PE; // preload enable
-	TIM2_CR1 |= TIM_CR1_ARPE; // auto reload is buffered
-	TIM2_CCER |= TIM_CCER_CC2E; // enable output compare (PWM output)
-
-	patch_register(TIM2_CR1, TIM_CR1_CMS, TIM_CMS_EDGE); // centering mode
-	patch_register(TIM2_CR1, TIM_CR1_DIR, 0); // count upwards only
-
-	// frequency set to 16 kHz
-
-	/*
-	TIM2_PSC = 32; // prescaller
-	TIM2_ARR = 1000; // sets frequency
-	TIM2_CCR2 = 500; // duty cycle
-	*/
-
-	TIM2_PSC = 1; // prescaller
-	TIM2_ARR = 1600; // sets frequency
-	TIM2_CCR2 = 500; // duty cycle
-
-	// generate update event to latch the value registers
-	TIM2_EGR |= TIM_EGR_UG;
-
-	TIM2_CR1 |= TIM_CR1_CEN; // enable timer.
-}
-
-
-
-
-
-
-
-
-
-
-

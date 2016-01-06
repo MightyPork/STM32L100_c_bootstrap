@@ -8,4 +8,3 @@ void init_systick(void);
 void init_adc(void);
 void init_dac(void);
 void init_pwm1(void);
-void init_pwm2(void);
